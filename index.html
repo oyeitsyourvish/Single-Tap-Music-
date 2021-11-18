@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <title>SingleTapMusic</title>
+</head>
+
+<body>
+    <div class="hero">
+
+        <div class="music">
+            <img src="media/mercy.jpg" alt="mercy">
+            <div class="info">
+                <h1>Mercy - Badshah</h1>
+                <p>Album - One(Never End)</p>
+
+
+                <!-------------- THIS IS BASIC TYPE TO ADD AUDIO MUSIC AND DIRECTLY CONTROLS ----------------->
+                <!-- <audio controls>
+                <source src="media/mercy-badshah.mp3" type="audio/mp3">
+            </audio> 
+            </div> -->
+                <!-- ---------------------------------------------------------------------------- -->
+
+
+                <!------------------ we use wavesurfer.js for directly play audio and controlls. ------------->
+
+                <div id="waveform"></div>
+                <div class="controls">
+                    <img src="media/play.png" id="playBtn">
+                    <img src="media/stop.png" id="stopBtn">
+                    <img src="media/volume.png" id="volumeBtn">
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <script>
+
+            var playBtn = document.getElementById("playBtn");
+            var stopBtn = document.getElementById("stopBtn");
+            var volumeBtn = document.getElementById("volumeBtn");
+
+
+            var wavesurfer = WaveSurfer.create({
+                container: '#waveform',
+                waveColor: 'white',
+                progressColor: 'pink',
+                barWidth: 4,
+                height: 90,
+                responsive: true,
+                hideScrollbar: true,
+                barRadius: 4
+
+            });
+
+            wavesurfer.load('media/mercy-badshah.mp3');
+
+            playBtn.onclick = function(){
+                wavesurfer.playPause();
+                if(playBtn.src.includes("play.png")){
+                    playBtn.src = "media/pause.png";
+                }
+                else{
+                    playBtn.src = "media/play.png"; 
+                }
+            }
+
+            stopBtn.onclick = function(){
+                wavesurfer.stop();
+            }
+
+            volumeBtn.onclick = function(){
+                wavesurfer.toggleMute();
+                if(volumeBtn.src.includes("volume.png")){
+                    volumeBtn.src = "media/mute.png";
+                }
+                else{
+                    volumeBtn.src = "media/volume.png"; 
+                }
+            }
+
+            wavesurfer.on('finish', function(){
+                playBtn.src = "media/play.png";
+                wavesurfer.stop(); 
+            });
+
+
+        </script>
+</body>
+
+</html>
